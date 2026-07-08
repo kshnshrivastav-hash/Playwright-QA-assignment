@@ -13,7 +13,6 @@ test('Test 4: Conditional Login Flow', async ({ page }) => {
   );
 
 
-  // Accept cookies if displayed
   const acceptCookies = page.getByRole('button', {
     name: /Accept All Cookies/i,
   });
@@ -22,14 +21,11 @@ test('Test 4: Conditional Login Flow', async ({ page }) => {
     await acceptCookies.click();
   }
 
-
-  // Access artifact iframe
   const frame = page.frameLocator(
     'iframe[title="Claude content"]'
   );
 
 
-  // Navigate to Flaky Selectors tab
   const flakySelectorsTab = frame.locator(
     '[data-tab="selectors"]'
   );
@@ -54,7 +50,6 @@ test('Test 4: Conditional Login Flow', async ({ page }) => {
   await adminLogin.click();
 
 
-  // Wait for dashboard to load
   const dashboard = frame.getByTestId(
     'dashboard-section'
   );
@@ -64,19 +59,16 @@ test('Test 4: Conditional Login Flow', async ({ page }) => {
   });
 
 
-  // Verify Admin Panel visible
   await expect(
     frame.getByTestId('admin-panel')
   ).toBeVisible();
 
 
-  // Verify Standard Panel is NOT visible
   await expect(
     frame.getByTestId('standard-panel')
   ).not.toBeVisible();
 
 
-  // Logout
   const logoutButton = frame.getByTestId(
     'logout-button'
   );
@@ -101,19 +93,16 @@ test('Test 4: Conditional Login Flow', async ({ page }) => {
   await standardLogin.click();
 
 
-  // Wait for dashboard again
   await expect(dashboard).toBeVisible({
     timeout: 30000
   });
 
 
-  // Verify Standard Panel visible
   await expect(
     frame.getByTestId('standard-panel')
   ).toBeVisible();
 
 
-  // Verify Admin Panel is NOT visible
   await expect(
     frame.getByTestId('admin-panel')
   ).not.toBeVisible();

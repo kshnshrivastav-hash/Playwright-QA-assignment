@@ -12,7 +12,6 @@ test('Test 3: Dynamic ID Handling', async ({ page }) => {
         }
     );
 
-    // Accept cookies if displayed
     const acceptCookies = page.getByRole('button', {
         name: /Accept All Cookies/i,
     });
@@ -21,14 +20,10 @@ test('Test 3: Dynamic ID Handling', async ({ page }) => {
         await acceptCookies.click();
     }
 
-
-    // Select Claude artifact iframe
     const frame = page.frameLocator(
         'iframe[title="Claude content"]'
     );
 
-
-    // Navigate to Flaky Selectors tab
     const flakySelectorsTab = frame.locator(
         '[data-tab="selectors"]'
     );
@@ -38,10 +33,7 @@ test('Test 3: Dynamic ID Handling', async ({ page }) => {
     });
 
     await flakySelectorsTab.click();
-
-    // Pause execution here
-    await page.pause();
-    // Verify tab navigation (optional)
+  
     await expect(
         flakySelectorsTab
     ).toHaveAttribute(
@@ -49,8 +41,6 @@ test('Test 3: Dynamic ID Handling', async ({ page }) => {
         'selectors'
     );
 
-
-    // Click Regenerate All IDs
     const regenerateButton = frame.getByTestId(
         'regenerate-ids'
     );
@@ -62,7 +52,6 @@ test('Test 3: Dynamic ID Handling', async ({ page }) => {
     await regenerateButton.click();
 
 
-    // Select Beta without using dynamic IDs
     const betaItem = frame.locator(
         '[data-name="Beta"]'
     );
@@ -73,8 +62,6 @@ test('Test 3: Dynamic ID Handling', async ({ page }) => {
 
     await betaItem.click();
 
-
-    // Verify Beta is selected
     const selectedItem = frame.getByTestId(
         'selected-item'
     );

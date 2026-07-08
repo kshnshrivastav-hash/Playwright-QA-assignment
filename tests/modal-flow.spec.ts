@@ -12,8 +12,6 @@ test('Test 5: Modal Confirmation Flow', async ({ page }) => {
     }
   );
 
-
-  // Accept cookies if displayed
   const acceptCookies = page.getByRole('button', {
     name: /Accept All Cookies/i,
   });
@@ -23,13 +21,11 @@ test('Test 5: Modal Confirmation Flow', async ({ page }) => {
   }
 
 
-  // Access artifact iframe
   const frame = page.frameLocator(
     'iframe[title="Claude content"]'
   );
 
 
-  // Navigate to Responsive tab
   const responsiveTab = frame.locator(
     '[data-tab="responsive"]'
   );
@@ -40,8 +36,6 @@ test('Test 5: Modal Confirmation Flow', async ({ page }) => {
 
   await responsiveTab.click();
 
-
-  // Open first modal
   const openModalButton = frame.getByTestId(
     'open-modal'
   );
@@ -53,7 +47,6 @@ test('Test 5: Modal Confirmation Flow', async ({ page }) => {
   await openModalButton.click();
 
 
-  // Verify first modal is visible
   const modalContent = frame.getByTestId(
     'modal-content'
   );
@@ -63,7 +56,6 @@ test('Test 5: Modal Confirmation Flow', async ({ page }) => {
   });
 
 
-  // Click Show Details inside first modal
   const showDetailsButton = modalContent.getByTestId(
     'show-nested'
   );
@@ -72,8 +64,6 @@ test('Test 5: Modal Confirmation Flow', async ({ page }) => {
 
   await showDetailsButton.click();
 
-
-  // Verify nested modal is visible
   const nestedModalContent = frame.getByTestId(
     'nested-modal-content'
   );
@@ -83,7 +73,6 @@ test('Test 5: Modal Confirmation Flow', async ({ page }) => {
   });
 
 
-  // Click Confirm inside nested modal only
   const confirmButton = nestedModalContent.getByTestId(
     'final-confirm'
   );
@@ -93,7 +82,6 @@ test('Test 5: Modal Confirmation Flow', async ({ page }) => {
   await confirmButton.click();
 
 
-  // Verify both modals are closed
   await expect(
     frame.getByTestId('modal-backdrop')
   ).not.toBeVisible({
@@ -107,7 +95,6 @@ test('Test 5: Modal Confirmation Flow', async ({ page }) => {
   });
 
 
-  // Verify result
   await expect(
     frame.getByTestId('modal-result')
   ).toHaveText(
